@@ -2,66 +2,37 @@ var inquirer = require('inquirer');
 var Letter = require('./letter');
 var Word = require('./word');
 
-// var newClass;
+//declare catagories
+var movies = ['dawn of the dead', 'psycho', 'halloween', 'scream', 'evil dead', 're-animator',
+  'nightmare on elm street', 'the conjuring', 'the texas chainsaw massacre', 'poltergeist'
+];
+var books = ['the shining', 'carrie', 'pet semetary', 'the exorcist', 'house of leaves', 'dracula',
+  'frankenstein', 'the collector', 'silence of the lambs', 'in cold blood'
+];
+var tv = ['the walking dead',
+  'american horror story', 'buffy the vampire slayer', 'ash vs evil dead', 'bates motel',
+  'the twilight zone', 'the x files', 'penny dreadful', 'supernatural', 'tales from the crypt'
+];
+var catagories = [movies, books, tv];
 
-// inquirer.prompt([
-//   {type: "input",
-//     name: "subject",
-//     message: "What's your class's subject?"},
-//   {type: "input",
-//     name: "capacity",
-//     message: "What's the capacity of the class?"},
+// chooses word to play 
+var chosenCatagory = catagories[Math.floor(Math.random() * catagories.length)];
+var chosenWord = chosenCatagory[Math.floor(Math.random() * chosenCatagory.length)];
 
-// ]).then(function(data){
-//     var students = [];
-//       newClass = new Clas([], data.subject, data.capacity);
+if (chosenCatagory === catagories[0]) {
+  console.log("The Chosen Catagory is Movies!");
 
-//       askToAddStudent();
-// });
+} else if (chosenCatagory === catagories[1]) {
+  console.log("The Chosen Catagory is Books!");
 
-// function newStudent(){
-//   inquirer.prompt([
-//     {type: "input",
-//       name: "sName",
-//       message: "What's your student's name?"}
+} else if (chosenCatagory === catagories[2]) {
+  console.log("The Chosen Catagory is TV!");
 
-//   ]).then(function(data){
-//         var newStudent = new Student(data.sName);
-//         newClass.addStudent(newStudent);
+}
 
-//         console.log(newClass);
-        
-//         askToAddStudent();
-//   });
-// }
-
-// function askToAddStudent(){
-//   inquirer.prompt([
-//     {type: "input",
-//       name: "addStudents",
-//       message: "Do you want to add students to that class?"}
-
-//   ]).then(function(data){
-//         if (data.addStudents == 'yes'){
-//           newStudent();
-//         }else{
-//           console.log(newClass);
-//         }
-//   });
-// }
-
-
-
-// var inquirer = require('inquirer')
-// var Word = require('./Word.js');
-
-// var words = ['jeff', 'john', 'rhyna'];
-
-// var wordToPlay = words[Math.floor(Math.random()*words.length)];
-
-// var wordObject = new Word(wordToPlay);
-// wordObject.makeAndPushLettersIntoWord();
-// console.log(wordObject.display());
+var wordObject = new Word(chosenWord);
+wordObject.init();
+console.log(wordObject.display());
 
 // function askLetter(){
 //     inquirer.prompt([
