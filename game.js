@@ -15,80 +15,91 @@ var tv = ['the walking dead',
 ];
 var catagories = [movies, books, tv];
 
+inquirer.prompt([{
+  type: "input",
+  name: "game",
+  message: "Would you like to play Horror Hangman?"},
+  ]).then(function(data){
+    if (data.game == 'yes') {
+      startGame();
+    } else {
+      console.log("You should play Hangman");
+    }
+  });
+
+
 
 function startGame(){
-    inquirer.prompt([
-    {
-    type: "input",
-    name: "game",
-    message: "Would you like to play Horror Hangman?"},
+  // chooses word to play 
+  var chosenCatagory = catagories[Math.floor(Math.random() * catagories.length)];
+  var chosenWord = chosenCatagory[Math.floor(Math.random() * chosenCatagory.length)];
+
+  if (chosenCatagory === catagories[0]) {
+  console.log("The Chosen Catagory is Movies!");
+
+  } else if (chosenCatagory === catagories[1]) {
+    console.log("The Chosen Catagory is Books!");
+
+  } else if (chosenCatagory === catagories[2]) {
+    console.log("The Chosen Catagory is TV!");
+
+  }
+
+  // creates new word object from chosenWord
+  var wordObject = new Word(chosenWord);
+  wordObject.init();
+  console.log(wordObject.display());
+
+  // asks user to guess
+  function askLetter(){
+    inquirer.prompt([{
+      type: "input",
+      name: "guess",
+      message: "What letter do you guess? If you are done then type quit."},
     ]).then(function(data){
-        if (data.game == 'yes') {
-          // chooses word to play 
-          var chosenCatagory = catagories[Math.floor(Math.random() * catagories.length)];
-          var chosenWord = chosenCatagory[Math.floor(Math.random() * chosenCatagory.length)];
-
-          if (chosenCatagory === catagories[0]) {
-            console.log("The Chosen Catagory is Movies!");
-
-          } else if (chosenCatagory === catagories[1]) {
-            console.log("The Chosen Catagory is Books!");
-
-          } else if (chosenCatagory === catagories[2]) {
-            console.log("The Chosen Catagory is TV!");
-
-          }
-
-          // creates new word object from chosenWord
-          var wordObject = new Word(chosenWord);
-          wordObject.init();
-          console.log(wordObject.display());
-
-          // asks user to guess
-          function askLetter(){
-            inquirer.prompt([{
-            type: "input",
-            name: "guess",
-            message: "What letter do you guess? If you are done then type quit."},
-            ]).then(function(data){
-              if (data.guess != 'quit') {
-                wordObject.updateLetter(data.guess);
-
-                console.log(wordObject.display());
-                console.log('Guesses Left: ' + wordObject.guesses);
+      if (data.guess != 'quit') {
+        wordObject.updateLetter(data.guess);
+        console.log(wordObject.display());
+        console.log('Guesses Left: ' + wordObject.guesses);
                 
-                //keeps track of how many correct letters are guessed
-                wordObject.matches = 0;
-                for(i=0; i<wordObject.letters.length; i++){
-                  if(wordObject.letters[i].found == true){
-                    wordObject.matches++
-                  }
-                }
-                console.log('Matches: ' + wordObject.matches);
-                console.log('spaces: ' + wordObject.spaces);
-                console.log('dashes: ' + wordObject.dashes);
+        //keeps track of how many correct letters are guessed
+        wordObject.matches = 0;
+        for(i=0; i<wordObject.letters.length; i++){
+          if(wordObject.letters[i].found == true){
+            wordObject.matches++
+          }
+        }  
 
-                //keeps track if user wins or looses game
-                if (((wordObject.matches + wordObject.dashes + wordObject.spaces)  == wordObject.letters.length) && (wordObject.guesses > 0)) {
-                  console.log("You've Won Horror Hangman!")
-                } else if(wordObject.guesses <= 0){
-                  console.log("Game Over! You are out of guesses")
-                } else {
-                  askLetter(); 
-                }
-               
-              }
-            });
-        }
+        console.log('Matches: ' + wordObject.matches);
 
-        askLetter();
-
+        //keeps track if user wins or looses game
+        if (((wordObject.matches + wordObject.dashes + wordObject.spaces)  == wordObject.letters.length) && (wordObject.guesses > 0)) {
+          console.log("You've Won Horror Hangman!");
+          replay();
+        } else if(wordObject.guesses <= 0){
+          console.log("Game Over! You are out of guesses");
+          replay();
         } else {
-          console.log("You should play Hangman");
+          askLetter(); 
         }
+               
+      }
     });
+  }
+
+  askLetter();
+
+  function replay() {
+    inquirer.prompt([{
+      type: "input",
+      name: "restart",
+      message: "Want to play again?"},
+    ]).then(function(data){
+      if(data.restart == 'yes'){
+        startGame();
+      } else {
+        console.log("You should play again!");
+      }
+    });
+  }      
 }
-
-
-
-startGame();
