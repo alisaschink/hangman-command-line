@@ -7,7 +7,7 @@ function Letter(letter){
     if(this.letter == '-'){
       return '-';
     } else if (this.letter == ' '){
-      return ' ';
+      return '  ';
     } else {
       if (this.found){
         return this.letter;

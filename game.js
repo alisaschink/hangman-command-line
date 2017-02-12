@@ -36,17 +36,19 @@ function startGame(){
   // chooses word to play 
   var chosenCatagory = catagories[Math.floor(Math.random() * catagories.length)];
   var chosenWord = chosenCatagory[Math.floor(Math.random() * chosenCatagory.length)];
+  var catName;
 
+  // sets catagory name in catName variable
   if (chosenCatagory === catagories[0]) {
-    console.log("The Chosen Catagory is Movies!".yellow.bold);
-
+    var catName = "Movies";
   } else if (chosenCatagory === catagories[1]) {
-    console.log("The Chosen Catagory is Books!".yellow.bold);
-
+    var catName = "Books";
   } else if (chosenCatagory === catagories[2]) {
-    console.log("The Chosen Catagory is TV!".yellow.bold);
-
+    var catName = "TV";
   }
+
+  // logs catagory
+  console.log(("The Chosen Catagory is " + catName + "!").yellow.bold);
 
   // creates new word object from chosenWord
   var wordObject = new Word(chosenWord);
@@ -66,6 +68,8 @@ function startGame(){
         // if guess is a letter, game continues...
         if(data.guess.match(reg)) {
           wordObject.updateLetter(data.guess);
+          // logs catagory
+          console.log(("The Chosen Catagory is " + catName + "!").yellow.bold);
           console.log(wordObject.display());
 
           // displays guesses
@@ -84,11 +88,11 @@ function startGame(){
 
           //keeps track if user wins or looses game
           if (((wordObject.matches + wordObject.dashes + wordObject.spaces)  == wordObject.letters.length) && (wordObject.guesses > 0)) {
-            console.log(wordObject.newWord);
+            console.log(wordObject.newWord.yellow.bold);
             console.log("You've Won Horror Hangman!".green.bold);
             replay();
           } else if(wordObject.guesses <= 0){
-            console.log(wordObject.newWord);
+            console.log(wordObject.newWord.yellow.bold);
             console.log("Game Over! You are out of guesses".red.bold);
             replay();
           } else {
