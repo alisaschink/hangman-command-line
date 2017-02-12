@@ -14,12 +14,12 @@ function Word(newWord){
     for(i=0; i<this.newWord.length; i++){
       var lett = new Letter(this.newWord[i]);
       this.letters.push(lett);
-      // if (this.newWord[i] == ' '){
-      //   this.spaces++;
-      // }
-      // if(this.newWord[i] == '-'){
-      //   this.dashes++;
-      // }
+      if (lett.letter == ' '){
+        this.spaces++;
+      }
+      if(lett.letter == '-'){
+        this.dashes++;
+      }
     }
   };
 
