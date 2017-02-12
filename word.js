@@ -8,7 +8,7 @@ function Word(newWord){
   this.letters = [];
   this.dashes = 0;
   this.spaces = 0;
-  this.guesses = 13;
+  this.guesses = 16;
   this.matches = 0;
   this.guessedLetters = [];
   this.init = function(){

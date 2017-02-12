@@ -63,10 +63,10 @@ function startGame(){
       message: "Guess a letter or type 'quit' to exit."},
     ]).then(function(data){
       if (data.guess != 'quit') {
-        // checks that guess is a letter
+        // checks that guess is a single letter
         var reg = /^[a-zA-Z]+$/;
         // if guess is a letter, game continues...
-        if(data.guess.match(reg)) {
+        if(data.guess.match(reg) && (data.guess.length == 1) ) {
           wordObject.updateLetter(data.guess);
           // logs catagory
           console.log(("The Chosen Catagory is " + catName + "!").yellow.bold);
