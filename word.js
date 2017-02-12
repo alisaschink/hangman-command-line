@@ -24,7 +24,7 @@ function Word(newWord){
     }
   };
 
-  //Word.display: for loop over the letter objects and its going to run the display on each letter
+  // loops over the letter objects and runs display on each letter
   this.display = function(){
     var str = '';
     for (i=0; i<this.letters.length; i++){
@@ -34,6 +34,7 @@ function Word(newWord){
     return str
   };
 
+  // displays guessed letters
   this.displayGuesses = function(){
     var guessedStr = '';
     for (i=0; i<this.guessedLetters.length; i++){
@@ -43,6 +44,7 @@ function Word(newWord){
     return guessedStr
   };
 
+  // updates display of letters and adds letter to guessed letter array
   this.updateLetter = function(guess){
     if (this.guessedLetters.indexOf(guess) == -1) {
       this.guessedLetters.push(guess);

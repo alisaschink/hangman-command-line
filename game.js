@@ -1,3 +1,5 @@
+// requires inquirer and colors npm packages 
+// requires letter.js and word.js
 var inquirer = require('inquirer');
 var Letter = require('./letter');
 var Word = require('./word');
@@ -86,10 +88,10 @@ function startGame(){
         // displays correct matches
         console.log('Matches: '.magenta.bold + wordObject.matches);
 
-        //displays letters that have been guessed
+        // displays letters that have been guessed
         console.log("Letters Guessed: ".cyan.bold + wordObject.displayGuesses());
 
-        //keeps track if user wins or looses game
+        // keeps track if user wins or looses game
         if (((wordObject.matches + wordObject.dashes + wordObject.spaces)  == wordObject.letters.length) && (wordObject.guesses > 0)) {
           console.log((" Answer: " + wordObject.newWord).yellow.bold);
           console.log(" ------------------------------".green.bold);
