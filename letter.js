@@ -1,3 +1,4 @@
+var colors = require('colors');
 
 function Letter(letter){
   this.letter = letter;
@@ -10,7 +11,7 @@ function Letter(letter){
       return '  ';
     } else {
       if (this.found){
-        return this.letter;
+        return this.letter.green.bold;
       } else {
         return '_';
       }

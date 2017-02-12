@@ -60,53 +60,51 @@ function startGame(){
     inquirer.prompt([{
       type: "input",
       name: "guess",
-      message: "Guess a letter or type 'quit' to exit."},
+      message: "Guess a letter"},
     ]).then(function(data){
-      if (data.guess != 'quit') {
-        // checks that guess is a single letter
-        var reg = /^[a-zA-Z]+$/;
-        // if guess is a letter, game continues...
-        if(data.guess.match(reg) && (data.guess.length == 1) ) {
-          wordObject.updateLetter(data.guess);
-          // logs catagory
-          console.log(("The Chosen Catagory is " + catName + "!").yellow.bold);
-          console.log(wordObject.display());
+      // checks that guess is a single letter
+      var reg = /^[a-zA-Z]+$/;
+      // if guess is a letter, game continues...
+      if(data.guess.match(reg) && (data.guess.length == 1) ) {
+        wordObject.updateLetter(data.guess);
+        // logs catagory
+        console.log(("The Chosen Catagory is " + catName + "!").yellow.bold);
+        console.log(wordObject.display());
 
-          // displays guesses
-          console.log('Guesses Left: '.cyan.bold + wordObject.guesses);
+        // displays guesses
+        console.log('Guesses Left: '.magenta.bold + wordObject.guesses);
                 
-          // keeps track of how many correct letters are guessed
-          wordObject.matches = 0;
-          for(i=0; i<wordObject.letters.length; i++){
-            if(wordObject.letters[i].found == true){
-              wordObject.matches++
-            }
-          }  
-
-          // displays correct matches
-          console.log('Matches: '.cyan.bold + wordObject.matches);
-
-          //displays letters that have been guessed
-          console.log("Letters Guessed: ".cyan.bold + wordObject.displayGuesses());
-
-          //keeps track if user wins or looses game
-          if (((wordObject.matches + wordObject.dashes + wordObject.spaces)  == wordObject.letters.length) && (wordObject.guesses > 0)) {
-            console.log(wordObject.newWord.yellow.bold);
-            console.log("You've Won Horror Hangman!".green.bold);
-            replay();
-          } else if(wordObject.guesses <= 0){
-            console.log(wordObject.newWord.yellow.bold);
-            console.log("Game Over! You are out of guesses".red.bold);
-            replay();
-          } else {
-            askLetter(); 
+        // keeps track of how many correct letters are guessed
+        wordObject.matches = 0;
+        for(i=0; i<wordObject.letters.length; i++){
+          if(wordObject.letters[i].found == true){
+            wordObject.matches++
           }
+         }  
 
-        } else { 
-          // if guess is not a letter, asks for another guess
-           console.log("That is not a valid guess".magenta.bold);
-           askLetter();
-        }        
+        // displays correct matches
+        console.log('Matches: '.magenta.bold + wordObject.matches);
+
+        //displays letters that have been guessed
+        console.log("Letters Guessed: ".cyan.bold + wordObject.displayGuesses());
+
+        //keeps track if user wins or looses game
+        if (((wordObject.matches + wordObject.dashes + wordObject.spaces)  == wordObject.letters.length) && (wordObject.guesses > 0)) {
+          console.log(wordObject.newWord.yellow.bold);
+          console.log("You've Won Horror Hangman!".green.bold);
+          replay();
+        } else if(wordObject.guesses <= 0){
+          console.log(wordObject.newWord.yellow.bold);
+          console.log("Game Over! You are out of guesses".red.bold);
+          replay();
+        } else {
+          askLetter(); 
+        }
+
+      } else { 
+        // if guess is not a letter, asks for another guess
+        console.log("That is not a valid guess".red.bold);
+        askLetter();     
       }
     });
   }

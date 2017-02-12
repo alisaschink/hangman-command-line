@@ -28,7 +28,7 @@ function Word(newWord){
   this.display = function(){
     var str = '';
     for (i=0; i<this.letters.length; i++){
-      str = str + " " +this.letters[i].display();
+      str = str + " " + this.letters[i].display();
     }
 
     return str
@@ -56,7 +56,7 @@ function Word(newWord){
       }
       this.display();
     } else {
-      console.log("Letter has already been guessed".magenta.bold);
+      console.log("Letter has already been guessed".red.bold);
     }
   }
 }
