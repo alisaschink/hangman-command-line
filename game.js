@@ -3,6 +3,7 @@ var Letter = require('./letter');
 var Word = require('./word');
 var colors = require('colors');
 
+
 //declare catagories
 var movies = ['dawn of the dead', 'psycho', 'halloween', 'scream', 'evil dead', 're-animator',
   'nightmare on elm street', 'the conjuring', 'the texas chainsaw massacre', 'poltergeist'
@@ -90,12 +91,16 @@ function startGame(){
 
         //keeps track if user wins or looses game
         if (((wordObject.matches + wordObject.dashes + wordObject.spaces)  == wordObject.letters.length) && (wordObject.guesses > 0)) {
-          console.log(wordObject.newWord.yellow.bold);
-          console.log("You've Won Horror Hangman!".green.bold);
+          console.log((" Answer: " + wordObject.newWord).yellow.bold);
+          console.log(" ------------------------------".green.bold);
+          console.log(" | You've Won Horror Hangman! |".green.bold);
+          console.log(" ------------------------------".green.bold);
           replay();
         } else if(wordObject.guesses <= 0){
-          console.log(wordObject.newWord.yellow.bold);
-          console.log("Game Over! You are out of guesses".red.bold);
+          console.log((" Answer: " + wordObject.newWord).yellow.bold);
+          console.log(" --------------------------------------".red.bold);
+          console.log(" | Game Over! You are out of guesses! |".red.bold);
+          console.log(" --------------------------------------".red.bold);
           replay();
         } else {
           askLetter(); 
