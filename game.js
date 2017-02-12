@@ -86,6 +86,9 @@ function startGame(){
           // displays correct matches
           console.log('Matches: '.cyan.bold + wordObject.matches);
 
+          //displays letters that have been guessed
+          console.log("Letters Guessed: ".cyan.bold + wordObject.displayGuesses());
+
           //keeps track if user wins or looses game
           if (((wordObject.matches + wordObject.dashes + wordObject.spaces)  == wordObject.letters.length) && (wordObject.guesses > 0)) {
             console.log(wordObject.newWord.yellow.bold);

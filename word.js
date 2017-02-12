@@ -34,6 +34,15 @@ function Word(newWord){
     return str
   };
 
+  this.displayGuesses = function(){
+    var guessedStr = '';
+    for (i=0; i<this.guessedLetters.length; i++){
+      guessedStr = guessedStr + " " + this.guessedLetters[i];
+    }
+
+    return guessedStr
+  };
+
   this.updateLetter = function(guess){
     if (this.guessedLetters.indexOf(guess) == -1) {
       this.guessedLetters.push(guess);
