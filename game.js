@@ -20,7 +20,8 @@ inquirer.prompt([{
   name: "game",
   message: "Would you like to play Horror Hangman?"},
   ]).then(function(data){
-    if (data.game == 'yes') {
+    // accounts for various answers like yes, Yes, yeah, yup, yeeeaaahhh, etc.
+    if (data.game[0].toLowerCase() == 'y') {
       startGame();
     } else {
       console.log("You should play Hangman");
@@ -60,12 +61,13 @@ function startGame(){
       if (data.guess != 'quit') {
         // checks that guess is a letter
         var reg = /^[a-zA-Z]+$/;
+        // if guess is a letter, game continues...
         if(data.guess.match(reg)) {
           wordObject.updateLetter(data.guess);
           console.log(wordObject.display());
           console.log('Guesses Left: ' + wordObject.guesses);
                 
-          //keeps track of how many correct letters are guessed
+          // keeps track of how many correct letters are guessed
           wordObject.matches = 0;
           for(i=0; i<wordObject.letters.length; i++){
             if(wordObject.letters[i].found == true){
@@ -89,6 +91,7 @@ function startGame(){
           }
 
         } else { 
+          // if guess is not a letter, asks for another guess
            console.log("That is not a valid guess");
            askLetter();
         }        
@@ -98,6 +101,7 @@ function startGame(){
 
   askLetter();
 
+  // restarts game
   function replay() {
     inquirer.prompt([{
       type: "input",
