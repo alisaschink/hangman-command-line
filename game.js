@@ -77,9 +77,11 @@ function startGame(){
 
           //keeps track if user wins or looses game
           if (((wordObject.matches + wordObject.dashes + wordObject.spaces)  == wordObject.letters.length) && (wordObject.guesses > 0)) {
+            console.log(wordObject.newWord);
             console.log("You've Won Horror Hangman!");
             replay();
           } else if(wordObject.guesses <= 0){
+            console.log(wordObject.newWord);
             console.log("Game Over! You are out of guesses");
             replay();
           } else {
