@@ -58,31 +58,38 @@ function startGame(){
       message: "What letter do you guess? If you are done then type quit."},
     ]).then(function(data){
       if (data.guess != 'quit') {
-        wordObject.updateLetter(data.guess);
-        console.log(wordObject.display());
-        console.log('Guesses Left: ' + wordObject.guesses);
+        // checks that guess is a letter
+        var reg = /^[a-zA-Z]+$/;
+        if(data.guess.match(reg)) {
+          wordObject.updateLetter(data.guess);
+          console.log(wordObject.display());
+          console.log('Guesses Left: ' + wordObject.guesses);
                 
-        //keeps track of how many correct letters are guessed
-        wordObject.matches = 0;
-        for(i=0; i<wordObject.letters.length; i++){
-          if(wordObject.letters[i].found == true){
-            wordObject.matches++
+          //keeps track of how many correct letters are guessed
+          wordObject.matches = 0;
+          for(i=0; i<wordObject.letters.length; i++){
+            if(wordObject.letters[i].found == true){
+              wordObject.matches++
+            }
+          }  
+
+          console.log('Matches: ' + wordObject.matches);
+
+          //keeps track if user wins or looses game
+          if (((wordObject.matches + wordObject.dashes + wordObject.spaces)  == wordObject.letters.length) && (wordObject.guesses > 0)) {
+            console.log("You've Won Horror Hangman!");
+            replay();
+          } else if(wordObject.guesses <= 0){
+            console.log("Game Over! You are out of guesses");
+            replay();
+          } else {
+            askLetter(); 
           }
-        }  
 
-        console.log('Matches: ' + wordObject.matches);
-
-        //keeps track if user wins or looses game
-        if (((wordObject.matches + wordObject.dashes + wordObject.spaces)  == wordObject.letters.length) && (wordObject.guesses > 0)) {
-          console.log("You've Won Horror Hangman!");
-          replay();
-        } else if(wordObject.guesses <= 0){
-          console.log("Game Over! You are out of guesses");
-          replay();
-        } else {
-          askLetter(); 
-        }
-               
+        } else { 
+           console.log("That is not a valid guess");
+           askLetter();
+        }        
       }
     });
   }
