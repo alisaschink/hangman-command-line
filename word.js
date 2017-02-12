@@ -1,5 +1,6 @@
 // requires letter.js
 var Letter = require('./letter');
+var colors = require('colors');
 
 
 function Word(newWord){
@@ -46,7 +47,7 @@ function Word(newWord){
       }
       this.display();
     } else {
-      console.log("Letter has already been guessed");
+      console.log("Letter has already been guessed".magenta.bold);
     }
   }
 }
