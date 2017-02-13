@@ -26,8 +26,8 @@ inquirer.prompt([{
   name: "game",
   message: "Would you like to play Horror Hangman?"},
   ]).then(function(data){
-    // accounts for various answers like yes, Yes, yeah, yup, yeeeaaahhh, etc.
-    if (data.game[0].toLowerCase() == 'y') {
+    // accounts for various answers like yes, Yes, yeah, hell yeah, yup, yeeeaaahhh, etc.
+    if (data.game[0].toLowerCase() == 'y' || data.game[5].toLowerCase() == 'y') {
       startGame();
     } else {
       console.log("You should play Hangman");
@@ -60,7 +60,32 @@ function startGame(){
   wordObject.init();
   console.log(wordObject.display());
 
-  // asks user to guess
+  //displays game details
+  function displayDetails() {
+    // logs catagory
+    console.log(("The Chosen Catagory is " + catName + "!").yellow.bold);
+    console.log(wordObject.display());
+
+    // displays guesses
+    console.log('Guesses Left: '.magenta.bold + wordObject.guesses);
+                
+    // keeps track of how many correct letters are guessed
+    wordObject.matches = 0;
+    for(i=0; i<wordObject.letters.length; i++){
+      if(wordObject.letters[i].found == true){
+        wordObject.matches++
+      }
+    }  
+
+    // displays correct matches
+    console.log('Matches: '.magenta.bold + wordObject.matches);
+
+    // displays letters that have been guessed
+    console.log("Letters Guessed: ".cyan.bold + wordObject.displayGuesses());
+  }
+     
+
+  // asks user to guess a letter
   function askLetter(){
     inquirer.prompt([{
       type: "input",
@@ -73,26 +98,7 @@ function startGame(){
       // if guess is a letter, game continues...
       if(data.guess.match(reg) && (data.guess.length == 1) ) {
         wordObject.updateLetter(data.guess);
-        // logs catagory
-        console.log(("The Chosen Catagory is " + catName + "!").yellow.bold);
-        console.log(wordObject.display());
-
-        // displays guesses
-        console.log('Guesses Left: '.magenta.bold + wordObject.guesses);
-                
-        // keeps track of how many correct letters are guessed
-        wordObject.matches = 0;
-        for(i=0; i<wordObject.letters.length; i++){
-          if(wordObject.letters[i].found == true){
-            wordObject.matches++
-          }
-         }  
-
-        // displays correct matches
-        console.log('Matches: '.magenta.bold + wordObject.matches);
-
-        // displays letters that have been guessed
-        console.log("Letters Guessed: ".cyan.bold + wordObject.displayGuesses());
+        displayDetails();
 
         // keeps track if user wins or looses game
         if (((wordObject.matches + wordObject.dashes + wordObject.spaces)  == wordObject.letters.length) && (wordObject.guesses >= 0)) {
@@ -114,26 +120,30 @@ function startGame(){
       } else { 
         // if guess is not a letter, asks for another guess
         console.log("That is not a valid guess".red.bold);
+        displayDetails();
         askLetter();     
       }
     });
   }
 
   askLetter();
+ 
+};
 
-  // restarts game
-  function replay() {
-    inquirer.prompt([{
-      type: "input",
-      name: "restart",
-      message: "Want to play again?"},
-    ]).then(function(data){
-      // accounts for various inputs
-      if(data.restart[0].toLowerCase() == 'y'){
-        startGame();
-      } else {
-        console.log("You should play again!");
-      }
-    });
-  }      
-}
+
+// restarts game
+function replay() {
+  inquirer.prompt([{
+    type: "input",
+    name: "restart",
+    message: "Want to play again?"},
+  ]).then(function(data){
+    // accounts for various answers like yes, Yes, yeah, hell yeah, yup, yeeeaaahhh, etc.
+    if(data.restart[0].toLowerCase() == 'y' || data.restart[5].toLowerCase() == 'y'){
+      startGame();
+    } else {
+      console.log("You should play again!");
+    }
+  });
+}; 
+
