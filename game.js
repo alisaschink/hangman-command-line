@@ -95,13 +95,13 @@ function startGame(){
         console.log("Letters Guessed: ".cyan.bold + wordObject.displayGuesses());
 
         // keeps track if user wins or looses game
-        if (((wordObject.matches + wordObject.dashes + wordObject.spaces)  == wordObject.letters.length) && (wordObject.guesses > 0)) {
+        if (((wordObject.matches + wordObject.dashes + wordObject.spaces)  == wordObject.letters.length) && (wordObject.guesses >= 0)) {
           console.log((" Answer: " + wordObject.newWord).yellow.bold);
           console.log(" ------------------------------".green.bold);
           console.log(" | You've Won Horror Hangman! |".green.bold);
           console.log(" ------------------------------".green.bold);
           replay();
-        } else if(wordObject.guesses <= 0){
+        } else if(((wordObject.matches + wordObject.dashes + wordObject.spaces) < wordObject.letters.length) && (wordObject.guesses <= 0)){
           console.log((" Answer: " + wordObject.newWord).yellow.bold);
           console.log(" --------------------------------------".red.bold);
           console.log(" | Game Over! You are out of guesses! |".red.bold);

@@ -1,4 +1,4 @@
-// requires letter.js
+// requires letter.js and colors npm package
 var Letter = require('./letter');
 var colors = require('colors');
 
@@ -49,10 +49,10 @@ function Word(newWord){
     if (this.guessedLetters.indexOf(guess) == -1) {
       this.guessedLetters.push(guess);
       this.guesses--;
-      //checks all letters to see if guess matches
+      // checks all letters to see if guess matches
       for(i=0; i<this.letters.length; i++){
         if(guess == this.letters[i].letter){
-          //if it does, update letter display and found to true
+          // if it does, update letter display and found to true
           this.letters[i].found = true;
         }
       }
