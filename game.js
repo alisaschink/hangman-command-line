@@ -26,12 +26,12 @@ inquirer.prompt([{
   name: "game",
   message: "Would you like to play Horror Hangman?"},
   ]).then(function(data){
-    // accounts for various answers like yes, Yes, yeah, hell yeah, yup, sure, yeeeaaahhh, etc.
+    // accounts for various answers like no, No, nah bro, no thanks, hell no, nooooo etc.
     var spIndex = data.game.indexOf(' ');
-    if (data.game[0].toLowerCase() == 'y' || data.game[0].toLowerCase() == 's' || data.game[spIndex + 1].toLowerCase() == 'y') {
-      startGame();
-    } else {
+    if ((data.game[0].toLowerCase() == 'n') || (data.game[spIndex + 1].toLowerCase() == 'n')) {
       console.log("You should play Hangman");
+    } else {
+      startGame();
     }
   });
 
@@ -139,12 +139,12 @@ function replay() {
     name: "restart",
     message: "Want to play again?"},
   ]).then(function(data){
-    // accounts for various answers like yes, Yes, yeah, hell yeah, sure, yup, yeeeaaahhh, etc.
+    // accounts for various answers like no, No, nah bro, no thanks, hell no, nooooo etc.
     var spIndex = data.restart.indexOf(' ');
-    if(data.restart[0].toLowerCase() == 'y' || data.restart[0].toLowerCase() == 's' || data.restart[spIndex + 1].toLowerCase() == 'y'){
-      startGame();
-    } else {
+    if((data.restart[0].toLowerCase() == 'n') || (data.restart[spIndex + 1].toLowerCase() == 'n')){
       console.log("You should play again!");
+    } else {
+      startGame();
     }
   });
 }; 
