@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/alisaschink/hangman-command-line#readme",
   "dependencies": {
+    "clear": "0.0.1",
     "colors": "^1.1.2",
     "inquirer": "^3.0.1"
   }

@@ -1,9 +1,10 @@
-// requires inquirer and colors npm packages 
+// requires inquirer, colors, and clear npm packages 
 // requires letter.js and word.js
 var inquirer = require('inquirer');
 var Letter = require('./letter');
 var Word = require('./word');
 var colors = require('colors');
+var clear = require('clear');
 
 
 //declare catagories
@@ -36,6 +37,7 @@ inquirer.prompt([{
 
 // game function
 function startGame(){
+  clear();
   // chooses word to play 
   var chosenCatagory = catagories[Math.floor(Math.random() * catagories.length)];
   var chosenWord = chosenCatagory[Math.floor(Math.random() * chosenCatagory.length)];
@@ -65,6 +67,7 @@ function startGame(){
       name: "guess",
       message: "Guess a letter"},
     ]).then(function(data){
+      clear();
       // checks that guess is a single letter
       var reg = /^[a-zA-Z]+$/;
       // if guess is a letter, game continues...
